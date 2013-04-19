@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listOutView"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Transparent" >
+    
+<RelativeLayout
+    android:id="@+id/listView"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="15dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="15dp"
+    android:paddingBottom="10dp"
+    android:theme="@style/Transparent" >
+
+    <TextView
+        android:id="@+id/listTimeText"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="时间：4-11 09:15"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/listStartText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/listTimeText"
+        android:layout_alignRight="@id/listTimeText"
+        android:layout_below="@+id/listTimeText"
+        android:layout_marginTop="10dp"
+        android:text="上车地点:XX小区"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+     <TextView
+        android:id="@+id/listEndText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/listTimeText"
+        android:layout_alignRight="@id/listTimeText"
+        android:layout_below="@+id/listStartText"
+        android:layout_marginTop="10dp"
+        android:text="下车地点："
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+     
+     <TextView
+        android:id="@+id/listCustomText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/listTimeText"
+        android:layout_alignRight="@id/listTimeText"
+        android:layout_below="@+id/listEndText"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="乘客：陈先生"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+     <Button
+         android:id="@+id/buttonMap"
+         style="?android:attr/buttonStyleSmall"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_alignParentRight="true"
+         android:layout_alignParentTop="true"
+         android:layout_marginRight="10dp"
+         android:layout_marginTop="15dp"
+         android:text="地图位置" />
+
+     <Button
+         android:id="@+id/buttonTel"
+         style="?android:attr/buttonStyleSmall"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_below="@+id/buttonMap"
+         android:layout_alignLeft="@id/buttonMap"
+        android:layout_alignRight="@id/buttonMap"
+         android:layout_marginTop="10dp"
+         android:text="拨打电话" />
+
+	
+</RelativeLayout>
+</RelativeLayout>

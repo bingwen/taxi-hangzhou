@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".LoginActivity" xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<TextView
+	    android:id="@+id/mapHeadtextView"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    android:layout_marginLeft="20dp"
+	    android:text="地图信息"
+	    android:textAppearance="?android:attr/textAppearanceLarge"
+	    android:textColor="#ffffffff" />
+
+	<ImageView
+	    android:id="@+id/mapImageView1"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentRight="true"
+	    android:layout_below="@id/mapHeadtextView"
+	    android:layout_marginTop="5dp"
+	    android:src="@drawable/line" />
+    
+	<Button
+	    android:id="@+id/mapMyPositionbtn"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+		android:layout_below="@id/mapImageView1"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginTop="5dp"
+	    android:text="我的位置" />
+
+    <Button
+        android:id="@+id/mapCustomPositionbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/mapMyPositionbtn"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="false"
+        android:layout_toRightOf="@id/mapMyPositionbtn"
+        android:text="乘客位置" />
+
+    <Button
+        android:id="@+id/mapRefreshPositionbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/mapMyPositionbtn"
+        android:layout_alignParentBottom="false"
+        android:layout_centerHorizontal="false"
+        android:layout_toRightOf="@id/mapCustomPositionbtn"
+        android:text="刷新位置" />
+	 <com.baidu.mapapi.map.MapView
+	     android:id="@+id/bmapView"
+	     android:layout_width="fill_parent"
+		 android:layout_height="fill_parent"
+	     android:layout_below="@id/mapMyPositionbtn"
+	     android:clickable="true" >
+
+    </com.baidu.mapapi.map.MapView>
+
+
+   
+
+</RelativeLayout>

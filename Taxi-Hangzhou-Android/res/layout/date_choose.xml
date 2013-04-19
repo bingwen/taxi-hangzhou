@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <TextView
+        android:id="@+id/dateChooseTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="20dp"
+        android:text="日期选择"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ffffffff" />
+
+    <ImageView
+        android:id="@+id/dateChooseImageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/dateChooseTextView1"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dateChooseImageView1"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/bg1" >
+
+        <TextView
+            android:id="@+id/startDateText"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="60dp"
+            android:gravity="left"
+            android:text="起始日期："
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/endDateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/startDateText"
+            android:layout_alignRight="@id/startDateText"
+            android:layout_below="@id/startDateText"
+            android:layout_marginTop="20dp"
+            android:gravity="left"
+            android:text="终止日期："
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/buttonDateChooseApply"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="80dp"
+            android:layout_marginLeft="40dp"
+            android:text="提交" />
+
+        <Button
+            android:id="@+id/buttonDateChooseBack"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="80dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="20dp"
+            android:text="返回" />
+
+        <EditText
+            android:id="@+id/startDateInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/startDateText"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_toRightOf="@+id/startDateText"
+            android:ems="10"
+            android:inputType="date" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/endDateInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/endDateText"
+            android:layout_alignLeft="@id/startDateInput"
+            android:layout_alignRight="@id/startDateInput"
+            android:ems="10"
+            android:inputType="date" />
+       
+    </RelativeLayout>
+
+</RelativeLayout>
