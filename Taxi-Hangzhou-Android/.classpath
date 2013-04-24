@@ -4,7 +4,8 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
-	<classpathentry kind="lib" path="C:/Users/steven/Desktop/baidu_demo/libs/baidumapapi_v2_1_0.jar"/>
-	<classpathentry kind="lib" path="C:/Users/steven/Desktop/baidu_demo/libs/locSDK_3.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/steven/Desktop/taxi-hangzhou/Taxi-Hangzhou-Android/libs/galhttprequest_1.0beta.jar"/>
+	<classpathentry kind="lib" path="C:/Users/steven/Desktop/taxi-hangzhou/Taxi-Hangzhou-Android/libs/baidumapapi_v2_1_0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/steven/Desktop/taxi-hangzhou/Taxi-Hangzhou-Android/libs/locSDK_3.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

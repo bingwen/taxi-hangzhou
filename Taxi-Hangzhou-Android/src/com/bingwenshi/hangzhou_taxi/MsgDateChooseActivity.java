@@ -88,7 +88,7 @@ public class MsgDateChooseActivity extends Activity {
 		buttonDateChooseApply = (Button)findViewById(R.id.buttonDateChooseApply);
 		
 		
-		startDateInput = (EditText) findViewById(R.id.startDateInput); 
+		startDateInput = (EditText) findViewById(R.id.loginPasswordInput); 
 		endDateInput = (EditText) findViewById(R.id.endDateInput); 
 		
 		startDateInput.setOnClickListener(new View.OnClickListener() {   

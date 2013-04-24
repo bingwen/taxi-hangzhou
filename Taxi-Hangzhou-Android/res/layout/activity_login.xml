@@ -31,15 +31,14 @@
 	    android:layout_marginTop="5dp"
 	    android:src="@drawable/line" />
 
-
     <TextView
         android:id="@+id/phoneNumText"
-        android:layout_width="100dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="80dp"
         android:gravity="right"
         android:text="手机号："
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -70,7 +69,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/startDateInput"
+        android:id="@+id/loginPasswordInput"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/loginPasswordText"
@@ -80,13 +79,33 @@
         android:ems="10"
         android:inputType="textPassword" />
 
+	<Button
+	    android:id="@+id/registerbtn"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@id/loginPasswordText"
+	    android:layout_marginLeft="60dp"
+	    android:layout_marginTop="30dp"
+	    android:text="注册" />
+
     <Button
         android:id="@+id/loginbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="150dp"
+        android:layout_alignBaseline="@id/registerbtn"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="60dp"
         android:text="登陆" />
+
+    <ProgressBar
+        android:id="@+id/loginProgressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="-5dp"
+        android:visibility="invisible" />
 
 </RelativeLayout>
