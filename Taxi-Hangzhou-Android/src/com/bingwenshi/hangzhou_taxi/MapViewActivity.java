@@ -4,8 +4,13 @@ import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.BMapManager;
+import com.baidu.mapapi.map.ItemizedOverlay;
+import com.baidu.mapapi.map.LocationData;
 import com.baidu.mapapi.map.MapController;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.MyLocationOverlay;
+import com.baidu.mapapi.map.Overlay;
+import com.baidu.mapapi.map.OverlayItem;
 import com.baidu.platform.comapi.basestruct.GeoPoint;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 
 public class MapViewActivity extends Activity {
 	
@@ -35,6 +41,8 @@ public class MapViewActivity extends Activity {
 	public MyLocationListener myListener = null;
 	
 	private MyApplication myApplication;
+	
+	//OverlayTest itemOverlay;
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -114,10 +122,33 @@ public class MapViewActivity extends Activity {
 		});
 		
 	}
+	
+	public void setMyPosition(GeoPoint point){
+		
+		MyLocationOverlay myLocationOverlay = new MyLocationOverlay(mMapView);
+		
+		LocationData locData = new LocationData();
+		//手动将位置源置为天安门，在实际应用中，请使用百度定位SDK获取位置信息，要在SDK中显示一个位置，需要
+		//使用百度经纬度坐标（bd09ll）
+		locData.latitude = point.getLatitudeE6();
+		locData.longitude = point.getLongitudeE6();
+		locData.direction = 2.0f;
+		
+		myLocationOverlay.setData(locData);
+		
+		mMapView.getOverlays().add(myLocationOverlay);
+		mMapView.refresh();
+		mMapView.getController().animateTo(new GeoPoint((int)(locData.latitude*1e6),
+		(int)(locData.longitude* 1e6)));
+	}
+	
 	public void updatePosition(GeoPoint point) {
 		mMapController.setCenter(point);//设置地图中心点
 		mMapController.setZoom(12);//设置地图zoom级别
-	}	
+		
+		setMyPosition(point);
+	}
+	
 	protected void onDestroy(){
 	        mMapView.destroy();
 	        if(mBMapMan!=null){

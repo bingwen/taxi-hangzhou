@@ -3,9 +3,12 @@ package com.bingwenshi.hangzhou_taxi;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.baidu.platform.comapi.basestruct.GeoPoint;
+
 import android.app.ActionBar.LayoutParams;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,16 +20,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ListViewAdapter extends BaseAdapter {
 
 	private class buttonViewHolder {
 
-		TextView listTimeText;
-		TextView listStartText;
-		TextView listEndText;
-		TextView listCustomText;
-
+		TextView listMsgText;
 		Button buttonMap;
 		Button buttonTel;
 	}
@@ -85,14 +85,9 @@ public class ListViewAdapter extends BaseAdapter {
 
 			holder = new buttonViewHolder();
 
-			holder.listTimeText = (TextView) convertView
+			holder.listMsgText = (TextView) convertView
 					.findViewById(valueViewID[0]);
-			holder.listStartText = (TextView) convertView
-					.findViewById(valueViewID[1]);
-			holder.listEndText = (TextView) convertView
-					.findViewById(valueViewID[2]);
-			holder.listCustomText = (TextView) convertView
-					.findViewById(valueViewID[3]);
+			
 			holder.buttonMap = (Button) convertView
 					.findViewById(R.id.buttonMap);
 			holder.buttonTel = (Button) convertView
@@ -112,24 +107,20 @@ public class ListViewAdapter extends BaseAdapter {
 
 		if (appInfo != null) {
 
-			holder.listTimeText.setText( "时间："+ (String) appInfo.get(keyString[0]));
-			holder.listStartText.setText("上车："+(String) appInfo.get(keyString[1]));
-			holder.listEndText.setText("下车："+(String) appInfo.get(keyString[2]));
-			holder.listCustomText.setText("乘客："+(String) appInfo.get(keyString[3]));
+			holder.listMsgText.setText((String) appInfo.get(keyString[0]));
 			holder.buttonMap
-					.setOnClickListener(new mapButtonListener(position));
+					.setOnClickListener(new mapButtonListener(position,(GeoPoint)appInfo.get(keyString[2])));
 			holder.buttonTel
-			.setOnClickListener(new telButtonListener(position));
+			.setOnClickListener(new telButtonListener(position,(String)appInfo.get(keyString[1])));
 
 		}
 		return convertView;
 	}
 
 	class mapButtonListener implements OnClickListener {
-		private int position;
-
-		mapButtonListener(int pos) {
-			position = pos;
+		public GeoPoint point ;
+		mapButtonListener(int pos,GeoPoint point) {
+			this.point = point;
 		}
 
 		@Override
@@ -137,6 +128,7 @@ public class ListViewAdapter extends BaseAdapter {
 			int vid = v.getId();
 			if (vid == holder.buttonMap.getId())
 			{
+				((MyApplication)v.getContext().getApplicationContext()).customPoint = point;
 				Intent intent = new Intent(v.getContext(), MapViewActivity.class);
 				v.getContext().startActivity(intent);
 			}
@@ -144,17 +136,29 @@ public class ListViewAdapter extends BaseAdapter {
 	}
 
 	class telButtonListener implements OnClickListener {
-		private int position;
+		private String numString;
 
-		telButtonListener(int pos) {
-			position = pos;
+		telButtonListener(int pos, String str) {
+			numString = str;
 		}
 
 		@Override
 		public void onClick(View v) {
 			int vid = v.getId();
 			if (vid == holder.buttonMap.getId())
-				removeItem(position);
+			{
+			
+			 if(numString.trim().length()!=0) 
+		        { 
+		         Intent phoneIntent = new Intent("android.intent.action.CALL", Uri.parse("tel:" + numString)); 
+		         //启动 
+		         v.getContext().startActivity(phoneIntent);
+		        } 
+		        //否则Toast提示一下 
+		        else{ 
+		        	Toast.makeText(v.getContext(), "Sorry,号码格式有误", Toast.LENGTH_LONG).show(); 
+		        } 
+			}
 		}
 	}
 

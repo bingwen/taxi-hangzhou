@@ -34,7 +34,8 @@
     android:layout_above="@+id/buttonSelectDate"
     android:layout_alignParentLeft="true"
     android:layout_alignParentRight="true"
-    android:layout_below="@id/msgHeadImageView" >
+    android:layout_below="@id/msgHeadImageView"
+    android:cacheColorHint="#00000000" >
 
 </ListView>
 

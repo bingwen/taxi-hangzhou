@@ -5,12 +5,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Vector;
 
 import org.apache.http.HttpResponse;
 
+import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.galhttprequest.GalHttpRequest;
 import com.galhttprequest.GalHttpRequest.GalHttpLoadTextCallBack;
 import com.galhttprequest.GalHttpRequest.GalHttpRequestListener;
@@ -24,9 +31,13 @@ import android.os.Message;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
-public class MyApplication extends Application {
+public class MyApplication extends Application implements Runnable{
 
-	public static final String URL_HEAD = "http://www.baidu.com";
+	//public static final String SERVER_IP = "10.180.69.31";
+	//public static final int SERVER_PORT = 6800;
+	
+	public static final String SERVER_IP = "115.238.57.12";
+	public static final int SERVER_PORT = 9999;
 
 	public int listMode;
 	public static final int LIST_MODE_ARRANGED = 0;
@@ -41,12 +52,49 @@ public class MyApplication extends Application {
 	public static final int MSG_MODE_QUALITY = 5;// 服务质量
 	public static final int MSG_MODE_COMPLAIN = 6;// 投诉表扬
 	public static final int MSG_MODE_QUESTION = 7;// 常见问题
+	
+	public static final int MSG_MODE_REGISTER = 10;// 注册
+	public static final int MSG_MODE_LOGIN = 11;// 登录
+	public static final int MSG_MODE_LOGOUT = 12;// 登出
+	
+	public static final int MSG_MODE_HISTORY = 10;// 注册
+	public static final int MSG_MODE_RECENT = 11;// 登录
+	public static final int MSG_MODE_NEARBY = 12;// 登出
 
 	public int userState;
 	public static final int USER_STATE_WAITLOG = 0;// 未登录
 	public static final int USER_STATE_LOGIN = 1;// 已登录
 	public static final int USER_STATE_NEEDRELOG = 2;// 重新登录
-
+	//用户信息
+	public String userNameString = "";
+	public String userPhone = "";
+	//public String userPassword = "";
+	public String userCar = "";
+	public String userService = "";
+	//public String userPeopleNum = "";
+	
+	
+	public int msgState;
+	public static final int MSG_STATE_WAIT = 0;// 等待
+	public static final int MSG_STATE_SUCCESS = 1;// 成功
+	public static final int MSG_STATE_FAILED = 2;// 失败
+	public static final int MSG_STATE_ERROR = 3;// 消息格式错误
+	
+	//msg变量
+	//private int bodyLength;
+	//int func;
+	//int device_type;
+	public byte[] imsi;
+	
+	//socket
+	Socket connectSocket;
+	InputStream connectInputStream;
+	OutputStream connectOutputStream;
+	public ArrayList<byte[]> connectSendList = new ArrayList<byte[]>(); 
+	public ArrayList<HashMap<String, Object>> gotMsgList = new ArrayList<HashMap<String, Object>>();
+	
+	SendMsgCreater sendMsgCreater = new SendMsgCreater();
+	
 	public dataListenerActivity _dataListenerActivity = null;
 
 	public String[] mainGridStrings;
@@ -54,12 +102,14 @@ public class MyApplication extends Application {
 	public Calendar startDate;
 	public Calendar endDate;
 
-	public double myPositionLatitude;// 維度
-	public double myPositionLongitude;// 經度
+	public double myPositionLatitude = 30.34365;// 維度
+	public double myPositionLongitude = 120.4545;// 經度
+	public GeoPoint customPoint;
 
-	public String testMsg;
+	//public String testMsg;
 	private static final String TAG = "MyApplication";
-
+	
+	//handler 通知主线程更新数据
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
@@ -74,8 +124,6 @@ public class MyApplication extends Application {
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-
-		testMsg = "test";
 
 		TelephonyManager mTelephonyMgr = (TelephonyManager) getSystemService(this.TELEPHONY_SERVICE);
 		String imsi = mTelephonyMgr.getSubscriberId();
@@ -99,10 +147,8 @@ public class MyApplication extends Application {
 
 		startDate = Calendar.getInstance();
 		endDate = Calendar.getInstance();
-
-		myPositionLatitude = 39.915 * 1E6;
-		myPositionLongitude = 116.404 * 1E6;
-
+	
+		testSocketConnect();
 	}
 
 	public String[] getMsgList() {
@@ -112,79 +158,112 @@ public class MyApplication extends Application {
 	public void refreshData() {
 
 	}
-
+	//检查是否登录
 	public boolean checkLogin() {
 		return false;
-
 	}
-
+	//发送消息
 	public void getMsg() {
-		httpRequest(URL_HEAD);
+		
 	}
-
+	//更新监听者的UI
 	void listenerUpdate() {
 		if (_dataListenerActivity != null) {
 			_dataListenerActivity.listenerUpdate();
 		}
 	}
-
-	public void httpRequest(String urlString) {
-		GalHttpRequest request = GalHttpRequest.requestWithURL(this, urlString);
-		// 第一次调用startAsynRequestString或者startAsynRequestBitmap必须在主线程调用
-		// 因为只有在主线程中调用才可以初始化GalHttprequest内部的全局句柄Handler
-
-		request.setListener(new GalHttpRequestListener() {
-
-			@Override
-			public void loadFinished(InputStream arg0, boolean arg1) {
-				// TODO Auto-generated method stub
-				
-				handleInputStream(arg0);
-				handler.sendEmptyMessage(1);
-			}
-
-			@Override
-			public void loadFailed(HttpResponse arg0, InputStream arg1) {
-				// TODO Auto-generated method stub
-				testMsg = "load error";
-				handler.sendEmptyMessage(1);
-			}
-		});
-		request.startAsynchronous();
-	}
-	
-	public void handleInputStream(InputStream inputStream) {
-		ByteArrayOutputStream outSteam = new ByteArrayOutputStream();  
-        byte[] buffer = new byte[1024];  
-        int len = -1;  
-        try {
-        	while ((len = inputStream.read(buffer)) != -1) {  
-                outSteam.write(buffer, 0, len);  
-            }  
-            outSteam.close();  
-            inputStream.close(); 
-            handleDataHead(outSteam.toByteArray());
-		} catch (Exception e) {
-			// TODO: handle exception
+	//检查是否已建立socket链接
+	public void testSocketConnect() {
+		if (connectSocket == null) {
+			new Thread(this).start();
 		}
-        //testMsg = outSteam.toString();
 	}
-	
-	public void handleDataHead(byte[] dataArray){
-		if (dataArray[0] != 0xFF ||  dataArray[1] != 0x27) {
-			return;
+	//建立socket链接
+	public void createSocketConnect() {
+		if (connectSocket == null) {
+			try {
+				connectSocket = new Socket(SERVER_IP,SERVER_PORT);
+				connectSocket.setSoTimeout(2000);
+				connectInputStream = connectSocket.getInputStream();
+				connectOutputStream = connectSocket.getOutputStream();
+				 
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 		}
-		int length = ((dataArray[2]<<8)&0xff00)|(dataArray[3]&0xff);
-		
-		int func = dataArray[4]&0xff;
-		
-		int[] imsi=new int[18];      
-		System.arraycopy(dataArray, 5, imsi, 0, 18);
-		
-		int device_type = dataArray[23]&0xff;
-		
-		
-
 	}
+	 @Override  
+    public void run() {  
+        while(true){
+        	if (connectSocket == null) {
+    			createSocketConnect();
+    		}
+        	//接收数据
+        	ByteArrayOutputStream outSteam = new ByteArrayOutputStream();  
+            byte[] buffer = new byte[1024];  
+            int len = -1;  
+            try {
+            	while (true) {  
+            		try {
+                		len = connectInputStream.read(buffer);
+                		Log.e(TAG, ">>>>>>>>read...");
+                		outSteam.write(buffer, 0, len); 
+                		if (len<1024) {
+							break;
+						}
+    				} catch (Exception e) {
+    					// TODO: handle exception
+    					Log.e(TAG, "time out");
+    					break;
+    				}
+                }  
+                outSteam.close();  
+                //处理数据
+                byte[] gotBytes = outSteam.toByteArray();
+                if (gotBytes.length>0) {
+              
+                	 GotMsgDecoder gotMsgDecoder = new GotMsgDecoder();
+                	 gotMsgDecoder.handleData(gotBytes);
+                     if (gotMsgDecoder.decodeSuccess()) {
+     					gotMsgList.add(gotMsgDecoder.resultMap);
+     					handler.sendEmptyMessage(1);
+     				}
+				}
+                
+    		} catch (Exception e) {
+    			// TODO: handle exception
+    		} 
+            //检查消息队列是否有消息
+            if (!connectSendList.isEmpty()) {
+            	//获取第一条消息
+				byte[] sendBytes= connectSendList.get(0);
+				connectSendList.remove(0);
+				try {
+					//发送消息
+					Log.e(TAG, ">>>>>send....");
+                	Log.e(TAG, byte2HexString(sendBytes));
+					connectOutputStream.write(sendBytes);
+					connectOutputStream.flush();
+				} catch (Exception e) {
+					// TODO: handle exception
+					Log.e(TAG, ">>>>>send srror");
+				}
+			}
+            
+        }  
+    } 
+	 public static String byte2HexString( byte[] b) { 
+		 StringBuilder sb = new StringBuilder();
+		 for (int i = 0; i < b.length; i++) { 
+			 String hex = Integer.toHexString(b[i] & 0xFF); 
+			 if (hex.length() == 1) { 
+				 hex = '0' + hex; 
+			 } 
+			 sb.append(hex);
+		} 
+		 return sb.toString();
 
+	 } 
+	
 }

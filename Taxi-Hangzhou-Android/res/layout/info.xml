@@ -50,25 +50,14 @@
          android:layout_alignParentLeft="true"
          android:layout_alignParentTop="true"
          android:layout_marginLeft="20dp"
-         android:layout_marginTop="10dp"
+         android:layout_marginTop="30dp"
          android:gravity="right"
          android:text="姓名："
+         android:textColor="@color/black" 
          android:textAppearance="?android:attr/textAppearanceLarge"
          android:textSize="18sp" />
 
-    <EditText
-        android:id="@+id/nameInput"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/nameText"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_toRightOf="@id/nameText"
-        android:ems="10"
-        android:gravity="center_vertical|left"
-        android:inputType="text"
-        android:singleLine="true" />
+    
 
     <TextView
         android:id="@+id/phoneNum"
@@ -80,6 +69,7 @@
         android:layout_marginTop="20dp"
         android:gravity="right"
         android:text="手机号："
+        android:textColor="@color/black" 
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="18sp" />
 
@@ -93,6 +83,7 @@
         android:layout_marginTop="20dp"
         android:gravity="right"
         android:text="密码："
+        android:textColor="@color/black" 
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="18sp" />
 
@@ -106,6 +97,7 @@
         android:layout_marginTop="20dp"
         android:gravity="right"
         android:text="车牌号："
+        android:textColor="@color/black" 
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="18sp" />
 
@@ -119,6 +111,7 @@
         android:layout_marginTop="20dp"
         android:gravity="right"
         android:text="身份证："
+        android:textColor="@color/black" 
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="18sp" />
 
@@ -132,9 +125,21 @@
         android:layout_marginTop="20dp"
         android:gravity="right"
         android:text="服务资格证："
+        android:textColor="@color/black" 
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="18sp" />
-
+	<EditText
+        android:id="@+id/nameInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/nameText"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_toRightOf="@id/nameText"
+        android:ems="10"
+        android:inputType="text"
+        android:singleLine="true" />
     <EditText
         android:id="@+id/phoneNumInput"
         android:layout_width="wrap_content"
@@ -220,8 +225,8 @@
 <ProgressBar
         android:id="@+id/infoProgressBar"
         style="?android:attr/progressBarStyleLarge"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="15dp"
         android:layout_marginTop="-5dp"

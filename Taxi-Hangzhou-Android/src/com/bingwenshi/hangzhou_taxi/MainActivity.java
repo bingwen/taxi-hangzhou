@@ -26,9 +26,6 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		
-
-
 		requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏
 		setContentView(R.layout.activity_main);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.title);
@@ -85,7 +82,6 @@ public class MainActivity extends Activity {
 				R.layout.grid_item, new String[] { "ItemImage", "ItemText" },
 				new int[] { R.id.ItemImage, R.id.ItemText });
 		mainGridView.setColumnWidth(100);
-		
 		mainGridView.setAdapter(saImageItems);
 		mainGridView.setOnItemClickListener(new ItemClickListener());
 
@@ -112,6 +108,8 @@ public class MainActivity extends Activity {
 				 intent = new Intent(arg1.getContext(), CustomListActivity.class);
 				 arg1.getContext().startActivity(intent);
 				break;
+				
+				//后面均是消息列表
 			case 2:
 				myApplication.msgMode = MyApplication.MSG_MODE_SCORE;
 				 intent = new Intent(arg1.getContext(), MsgListViewActivity.class);
@@ -172,10 +170,13 @@ public class MainActivity extends Activity {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case Menu.FIRST + 1:
-			Intent intent = new Intent(this, InfoActivity.class);
-			this.startActivity(intent);
+			//Intent intent = new Intent(this, InfoActivity.class);
+			//this.startActivity(intent);
 			break;
 		case Menu.FIRST + 2:
+			byte[] sendBytes = myApplication.sendMsgCreater.getLogoutBytes();
+			myApplication.connectSendList.add(sendBytes);
+			myApplication.userState = MyApplication.USER_STATE_NEEDRELOG;
 			finish();
 			break;
 		default:

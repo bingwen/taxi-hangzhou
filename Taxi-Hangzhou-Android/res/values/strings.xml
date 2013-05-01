@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">出租车杨招司机端</string>
-    <string name="action_settings">修改信息</string>
-    <string name="login">登陆</string>
+
 
 </resources>

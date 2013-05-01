@@ -11,6 +11,7 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
+        public static final int black=0x7f040001;
         public static final int transparent=0x7f040000;
     }
     public static final class dimen {
@@ -46,19 +47,19 @@ public final class R {
     public static final class id {
         public static final int ItemImage=0x7f09001a;
         public static final int ItemText=0x7f09001b;
-        public static final int action_settings=0x7f09003f;
+        public static final int action_settings=0x7f09003c;
         public static final int bmapView=0x7f09000f;
-        public static final int button=0x7f09003e;
+        public static final int button=0x7f09003b;
         public static final int buttonApply=0x7f09002a;
         public static final int buttonBack=0x7f09002b;
         public static final int buttonDateChooseApply=0x7f090017;
         public static final int buttonDateChooseBack=0x7f090018;
-        public static final int buttonMap=0x7f090033;
-        public static final int buttonMsgBack=0x7f09003c;
-        public static final int buttonSelectDate=0x7f09003b;
-        public static final int buttonTel=0x7f090034;
+        public static final int buttonMap=0x7f090030;
+        public static final int buttonMsgBack=0x7f090039;
+        public static final int buttonSelectDate=0x7f090038;
+        public static final int buttonTel=0x7f090031;
         public static final int carNumInput=0x7f090027;
-        public static final int carNumText=0x7f090022;
+        public static final int carNumText=0x7f090021;
         public static final int customListView=0x7f090012;
         public static final int dateChooseImageView1=0x7f090014;
         public static final int dateChooseTextView1=0x7f090013;
@@ -68,13 +69,10 @@ public final class R {
         public static final int infoImageView1=0x7f09001d;
         public static final int infoProgressBar=0x7f09002c;
         public static final int infoTextView1=0x7f09001c;
-        public static final int listCustomText=0x7f090032;
-        public static final int listEndText=0x7f090031;
         public static final int listHeadImageView=0x7f090011;
         public static final int listHeadTextView=0x7f090010;
+        public static final int listMsgText=0x7f09002f;
         public static final int listOutView=0x7f09002d;
-        public static final int listStartText=0x7f090030;
-        public static final int listTimeText=0x7f09002f;
         public static final int listView=0x7f09002e;
         public static final int loginPasswordInput=0x7f090005;
         public static final int loginPasswordText=0x7f090003;
@@ -87,26 +85,26 @@ public final class R {
         public static final int mapImageView1=0x7f09000b;
         public static final int mapMyPositionbtn=0x7f09000c;
         public static final int mapRefreshPositionbtn=0x7f09000e;
-        public static final int msgHeadImageView=0x7f090039;
-        public static final int msgHeadTextView=0x7f090038;
-        public static final int msgListContentText=0x7f090037;
-        public static final int msgListItemView=0x7f090036;
-        public static final int msgListOutView=0x7f090035;
-        public static final int msgListView=0x7f09003a;
-        public static final int nameInput=0x7f09001f;
+        public static final int msgHeadImageView=0x7f090036;
+        public static final int msgHeadTextView=0x7f090035;
+        public static final int msgListContentText=0x7f090034;
+        public static final int msgListItemView=0x7f090033;
+        public static final int msgListOutView=0x7f090032;
+        public static final int msgListView=0x7f090037;
+        public static final int nameInput=0x7f090024;
         public static final int nameText=0x7f09001e;
         public static final int passwordInput=0x7f090026;
-        public static final int passwordText=0x7f090021;
+        public static final int passwordText=0x7f090020;
         public static final int peopleNumInput=0x7f090028;
-        public static final int peopleNumText=0x7f090023;
-        public static final int phoneNum=0x7f090020;
+        public static final int peopleNumText=0x7f090022;
+        public static final int phoneNum=0x7f09001f;
         public static final int phoneNumInput=0x7f090025;
         public static final int phoneNumText=0x7f090002;
         public static final int registerbtn=0x7f090006;
-        public static final int serevNumText=0x7f090024;
+        public static final int serevNumText=0x7f090023;
         public static final int serveNumInput=0x7f090029;
         public static final int startDateText=0x7f090015;
-        public static final int text=0x7f09003d;
+        public static final int text=0x7f09003a;
         public static final int textView1=0x7f090000;
     }
     public static final class layout {
@@ -126,9 +124,7 @@ public final class R {
         public static final int main=0x7f080000;
     }
     public static final class string {
-        public static final int action_settings=0x7f060001;
         public static final int app_name=0x7f060000;
-        public static final int login=0x7f060002;
     }
     public static final class style {
         /** 

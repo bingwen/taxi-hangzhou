@@ -20,7 +20,6 @@ public class MsgDateChooseActivity extends Activity {
 	
     private EditText startDateInput; 
     private EditText endDateInput; 
-    private Button buttonDateChooseApply;   
     
     private Calendar startDate;
     private Calendar endDate;
@@ -40,6 +39,7 @@ public class MsgDateChooseActivity extends Activity {
                                       int monthOfYear, int dayOfMonth) {   
                     startDate.set(year, monthOfYear, dayOfMonth);
                     myApplication.startDate = startDate;
+                    
                     startDateInput.setText(   
                             new StringBuilder()
                                     .append(monthOfYear + 1).append("-")   
@@ -85,8 +85,17 @@ public class MsgDateChooseActivity extends Activity {
 			
 		});
 		
-		buttonDateChooseApply = (Button)findViewById(R.id.buttonDateChooseApply);
 		
+		Button buttonDateChooseApply = (Button)findViewById(R.id.buttonDateChooseApply);
+		buttonDateChooseApply.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub				
+				setResult(2);
+				finish();
+			}
+		});
 		
 		startDateInput = (EditText) findViewById(R.id.loginPasswordInput); 
 		endDateInput = (EditText) findViewById(R.id.endDateInput); 
